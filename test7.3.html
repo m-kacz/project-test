@@ -1,0 +1,187 @@
+<html>
+<script>
+	var Left = 0;
+	var level = 6000;
+	var scoreVal = 0;
+	var shotVal = 5;
+	var ref2 = document.getElementById("scoreboard");
+	var ref3 = document.getElementById("shots");
+	var span2 = document.createElement("span");
+	
+	var dotPostL = 0;
+	var blockPostL = 0;
+	var dotPostT = 0;
+	var blockPostT = 0;
+	var blockHit = 0;
+	var time;
+	span2.style.top = 0;
+	span2.style.left = 0;
+	/*function startGame(){
+		var timeVal = document.getElementById("timeLeft");
+		timeVal.value = 60;
+		var ttt = window.setInterval(
+		function(){	
+			timeVal.value = parseInt(timeVal.value)-1;
+			var t1 = parseInt(timeVal.value);
+			if(t1==0){
+				window.clearInterval(ttt);
+				alert("Game over! Your score was: "+scoreVal);
+				scoreVal = 0;
+				shotVal = 5;
+				document.getElementById('scoreboard').value  = scoreVal;
+				document.getElementById('shots').value  = shotVal;
+			}
+			if(t1<=5){
+				if(t1 % 2 == 0){
+					timeVal.color="black";
+				}
+				else{
+					timeVal.color="red";
+				}
+			}
+		}, 1000);
+
+	}*/
+	function keyPressed(){
+		var ref = document.getElementById("G");
+		
+		Left = parseInt(ref.style.left);
+		if(event.keyCode==39){
+			Left += 10;
+		}
+		if(event.keyCode==37){
+			Left -= 10;
+		}
+		if(Left<10){
+			Left = 10;
+		}
+		if(Left>=1100){
+			Left = 1100;
+		}
+		
+		if(event.keyCode==32){
+			//document.getElementById('audio').play();
+			var topVal = 300;
+			
+			console.log(scoreVal);
+					var dot = document.createElement("span");
+					dot.innerHTML = "<pre>  *</pre>";
+					dot.style.position="absolute";
+					dot.style.top = 300;
+					dot.style.color = "white";
+					dot.style.left = Left;
+					document.body.appendChild(dot);
+					document.getElementById('audio').play();
+					var timer = window.setInterval(
+										function(){
+											topVal-=5;
+											dot.style.top=topVal;
+											
+											dotPostL = parseInt(dot.style.left);
+											blockPostL = parseInt(span2.style.left);
+											dotPostT = parseInt(dot.style.top);
+											blockPostT = parseInt(span2.style.top);
+											console.log("left"+dotPostL+" "+blockPostL);
+											console.log("top"+dotPostT+" "+blockPostT);
+											if (topVal<=0){
+												window.clearInterval(timer);
+											}
+
+											if(blockHit == 0){
+												if(dotPostL >= blockPostL-50 && dotPostL <= blockPostL+50){
+													console.log("here1");
+		 			 								if(dotPostT <= blockPostT-5){
+		 			 									console.log("here2");
+		 			 									blockHit = 1;
+		 			 									document.getElementById('explosion').play();
+		 			 									//window.clearInterval(time);
+			 			 						 		span2.style.color = "black";
+			 			 						 		dot.style.color = "black";
+			 			 						 		scoreVal = parseInt(document.getElementById('scoreboard').value)+100;
+			 			 						 		document.getElementById('scoreboard').value  = scoreVal;
+			 			 						 		shotVal = parseInt(document.getElementById('shots').value)+1;
+			 			 						 		document.getElementById('shots').value  = shotVal;
+		 				 						 	}
+												}
+											
+		 			 					 	}
+										 }, 25);
+			if(shotVal>0){
+				shotVal -=1;
+			}
+			else{
+				alert("Game over! Your score was: "+scoreVal);
+				scoreVal = 0;
+				shotVal = 5;
+				document.getElementById('scoreboard').value  = scoreVal;
+				document.getElementById('shots').value  = shotVal;
+			}
+			document.getElementById('shots').value  = shotVal;
+			}
+		ref.style.left = Left;
+	}
+	 function createSomething(){
+	 	var v = 0;
+
+	 	span2.innerHTML = "<pre>|_|</pre>";
+	 	span2.style.position="absolute";
+	 	
+	 	span2.style.height = 50;
+	 	span2.style.width = 50;
+	 	time = window.setInterval(
+	 		function(){
+	 			//v = level;
+	 			//setTimeout(function(){
+	 				blockHit = 0;
+	 				span2.style.color = "red";
+		 			var topVal = parseInt(Math.random()*250);
+		 			var leftVal = parseInt(Math.random()*1100);
+		 			//span.style.backgroundcolor = "white";
+		 			span2.style.top = topVal;
+		 			span2.style.left = leftVal;
+		 			document.body.appendChild(span2);
+		 			
+ 	
+		 			// }
+		 		//}, level); 
+		 		//v = level;
+		//setTimeout(function() {}, 1000);
+	 			console.log(v);
+	 			//document.getElementById('boop').play();
+	 			//if (topVal<=10){
+	 			//	window.clearInterval(timer);
+	 			//}
+	 		}, 4000);
+	 	
+	}
+
+	function setLevel(val){
+		level = val;
+	}
+</script>
+<audio id="audio" controls style="display:none">
+  <source src="C:\Users\QA\Desktop\html\pew.wav" type="audio/mpeg"> Your browser does not support the audio element.
+</audio>
+<audio id="explosion" controls style="display:none">
+  <source src="C:\Users\QA\Desktop\html\explosion.wav" type="audio/mpeg"> Your browser does not support the audio element.
+</audio>
+<body onload="createSomething()" style="background-color:black" onkeydown="keyPressed()">
+	<span style="color:white">Score:</span>
+	<input type="text" value="0" id="scoreboard">
+	<span style="color:white">Shots:</span>
+	<input type="text" value="5" id="shots">
+<!--	<span style="color:white">Time left:</span>
+	<input type="text" value="60" id="timeLeft">
+	<input type="button" value="Start Game" id="lvl1" style="position:absolute; top:400; left:50" onclick="startGame()">-->
+<!--	<input type="button" value="level 2" id="lvl2" style="position:absolute; top:400; left:100" onclick="setLevel(4000)">
+	<input type="button" value="level 3" id="lvl3" style="position:absolute; top:400; left:150" onclick="setLevel(2000)">
+	<input type="button" value="level 4" id="lvl4" style="position:absolute; top:400; left:200" onclick="setLevel(1000)">-->
+	<span id="G" style="position: absolute;top: 300; left:10; color:green">
+		<pre>
+	
+  _
+_| |_
+		</pre>
+	</span>
+</body>
+</html>
