@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<script>
+	function request(checker){
+		const Http = new XMLHttpRequest();
+		var start = 0;
+		var totalPrice = parseFloat(start);
+		console.log(checker);
+		var url = "http://"+location.host+"8080/showall";
+		Http.open("GET", url);
+//setTimeout(function(){},1000);
+Http.onreadystatechange = function(e){
+//	console.log("no");
+if (Http.readyState==4){
+	console.log(JSON.parse(Http.responseText));
+	data=JSON.parse(Http.responseText);
+	$("#list1 tbody tr").remove();
+	var tableRef = document.getElementById('list1').getElementsByTagName('tbody')[0];
+//	var header = tableRef.createElement("thead");
+	var headerRow = list1.insertRow(0);
+	var cell = headerRow.insertCell(0);
+	cell.innerHTML = "<b>Item</b>";
+		var cell2 = headerRow.insertCell(1);
+	cell2.innerHTML = "<b>Quantity</b>";
+		var cell3 = headerRow.insertCell(2);
+	cell3.innerHTML = "<b>Price</b>";
+		var cell4 = headerRow.insertCell(3);
+	cell4.innerHTML = "<b>Total</b>";
+		var cell5 = headerRow.insertCell(4);
+	cell5.innerHTML = "<b>Purchased</b>";
+		var cell6 = headerRow.insertCell(5);
+	cell6.innerHTML = "<b></b>";
+		var cell7 = headerRow.insertCell(6);
+	cell7.innerHTML = "<b></b>";
+
+	data.forEach(function(loop){
+		if(checker==0){
+
+			var tableRef = document.getElementById('list1').getElementsByTagName('tbody')[0];
+
+  // Insert a row in the table at row index 0
+  var newRow   = tableRef.insertRow(list1.rows.length);
+
+  var newRow = list1.insertRow();
+  newRow.id ="myTr";
+
+  var a1=newRow.insertCell(0);
+  var t1 = document.createTextNode(loop.item);
+  a1.appendChild(t1);
+
+  var a2=newRow.insertCell(1);
+  var t2 = document.createTextNode(loop.quantity);
+  a2.appendChild(t2);
+
+  var a3=newRow.insertCell(2);
+  var t3 = document.createTextNode("£"+loop.price);
+  a3.appendChild(t3);
+
+  var a4=newRow.insertCell(3);
+  var t4 = document.createTextNode("£"+loop.total);
+  a4.appendChild(t4);
+
+  var a5=newRow.insertCell(4);
+  var t5 = document.createElement('input');
+  t5.type = 'checkbox';
+  t5.checked = loop.purchased;
+  a5.appendChild(t5);
+
+		var a6=newRow.insertCell(5);
+  		var t6 = document.createElement('input');
+  		t6.type = 'button';
+  		t6.value = "Edit";
+  		a6.appendChild(t6);
+
+		var a7=newRow.insertCell(6);
+  		var t7 = document.createElement('input');
+  		t7.type = 'button';
+  		t7.value = "Delete";
+  		a7.appendChild(t7);
+
+  console.log(loop.total);
+  var t4total = parseFloat(loop.total);
+  totalPrice = totalPrice + t4total;
+  console.log(totalPrice);
+}
+else{
+
+	if(loop.purchased==false){
+		var tableRef = document.getElementById('list1').getElementsByTagName('tbody')[0];
+
+		  // Insert a row in the table at row index 0
+		  var newRow   = tableRef.insertRow(list1.rows.length);
+
+		  var newRow = list1.insertRow();
+		  newRow.id ="myTr";
+
+		  var a1=newRow.insertCell(0);
+		  var t1 = document.createTextNode(loop.item);
+		  a1.appendChild(t1);
+
+		  var a2=newRow.insertCell(1);
+		  var t2 = document.createTextNode(loop.quantity);
+		  a2.appendChild(t2);
+
+		  var a3=newRow.insertCell(2);
+		  var t3 = document.createTextNode("£"+loop.price);
+		  a3.appendChild(t3);
+
+		  var a4=newRow.insertCell(3);
+		  var t4 = document.createTextNode("£"+loop.total);
+		  a4.appendChild(t4);
+
+		  var a5=newRow.insertCell(4);
+		  var t5 = document.createElement('input');
+		  t5.type = 'checkbox';
+		  t5.checked = loop.purchased;
+		  a5.appendChild(t5);
+
+		var a6=newRow.insertCell(5);
+  		var t6 = document.createElement('input');
+  		t6.type = 'button';
+  		t6.value = "Edit";
+  		a6.appendChild(t6);
+
+		var a7=newRow.insertCell(6);
+  		var t7 = document.createElement('input');
+  		t7.type = 'button';
+  		t7.value = "Delete";
+  		a7.appendChild(t7);
+
+		  console.log(loop.total);
+		  var t4total = parseFloat(loop.total);
+		  totalPrice = totalPrice + t4total;
+		  console.log(totalPrice);
+		}
+	}
+});
+	var newRow0 = list1.insertRow();
+	newRow0.id ="myTr0";
+
+	var a1=newRow0.insertCell(0);
+	var t1 = document.createTextNode("");
+	a1.appendChild(t1);
+
+	var a2=newRow0.insertCell(1);
+	var t2 = document.createTextNode("");
+	a2.appendChild(t2);
+
+	var a3=newRow0.insertCell(2);
+	var t3 = document.createTextNode("Total:");
+	a3.appendChild(t3);
+
+	var a4=newRow0.insertCell(3);
+	var t4 = document.createTextNode("£"+totalPrice);
+	a4.appendChild(t4);
+
+	var a5=newRow0.insertCell(4);
+	var t5 = document.createTextNode("");
+	a5.appendChild(t5);
+
+	var a6=newRow0.insertCell(5);
+	var t6 = document.createTextNode("");
+	a6.appendChild(t6);
+
+	var a7=newRow0.insertCell(6);
+	var t7 = document.createTextNode("");
+	a7.appendChild(t7);
+
+	var newRow = list1.insertRow();
+	newRow.id ="myTr";
+
+		// var textbox = document.createElement('input');
+		// textbox.type = 'text';
+		// document.getElementById('theForm').appendChild(textbox);
+
+		var a1=newRow.insertCell(0);
+		var t1 = document.createElement('input');
+		t1.type = 'text';
+		t1.placeholder = "Enter New Item";
+		t1.id = "newItem";
+		a1.appendChild(t1);
+
+		var a2=newRow.insertCell(1);
+		var t2 = document.createElement('input');
+		t2.type = 'text';
+		t2.placeholder = "Enter Quantity";
+		t2.id = "newQuantity";
+		a2.appendChild(t2);
+
+		var a3=newRow.insertCell(2);
+		var t3 = document.createElement('input');
+		t3.type = 'text';
+		t3.placeholder = "Enter Price";
+		t3.id = "newPrice";
+		a3.appendChild(t3);
+
+		var a4=newRow.insertCell(3);
+  		var t4 = document.createElement('input');
+  		t4.type = 'submit';
+  		t4.value = "Add new item";
+  		t4.addEventListener( 'click', function(){
+ 	 		console.log(newItem.value);
+ 	 		console.log(newQuantity.value);
+ 	 		console.log(newPrice.value);
+ 	 		var newTotal = newQuantity.value * newPrice.value;
+ 	 		console.log(newTotal);
+		} );
+  		
+  		t4.id = "newItemButton";
+  		a4.appendChild(t4);
+
+	}
+}
+Http.send();
+}
+
+</script>
+<html lang="en">
+<head>
+	<title>Bootstrap Example</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+</head>
+<body onload="request('0')">
+	<nav class="navbar navbar-default">
+		<div class="container-fluid">
+			<!-- Brand and toggle get grouped for better mobile display -->
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#">Shopping List App</a>
+			</div>
+
+			<!-- Collect the nav links, forms, and other content for toggling -->
+			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				<ul class="nav navbar-nav">
+					<li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
+					<li><a href="#">Link</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">One more separated link</a></li>
+						</ul>
+					</li>
+				</ul>
+				<form class="navbar-form navbar-left">
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Search">
+
+					</div>
+					<button type="submit" class="btn btn-default">Submit</button>
+				</form>
+				<ul class="navbar-form navbar-left">
+					<input type="button" value="Hide purchased" class="btn btn-default" id="hide" onclick="request('1')">
+					<input type="button" value="Show purchased" class="btn btn-default" id="hide" onclick="request('0')">
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					
+					
+					<li><a href="#">Link</a></li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+							<li role="separator" class="divider"></li>
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div><!-- /.navbar-collapse -->
+		</div><!-- /.container-fluid -->
+	</nav>
+
+	<!--<input type="button" value="Send Request">-->
+	<div class="panel panel-default">
+		<!-- Default panel contents -->
+		<div class="panel-heading">Shopping list</div>
+
+		<!-- Table -->
+		<table class="table table-bordered" id="list1">
+			<tbody>
+				<tr>
+					<th>Item</th>
+					<th>Quantity</th>
+					<th>Price</th>
+					<th>Total</th>
+					<th>Purchased</th>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+	<input type="submit" value="Add new item" id="newItemButton">
+
+</body>
+</html>

@@ -1,17 +1,28 @@
 package com.nationwide.shoppinglist;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
+@Table(name="test1")
 public class Test1 {
 	@Id
-//	@GeneratedValue
+	@GeneratedValue
+	private int id;
 	private String item;
 	private int quantity;
 	private float price;
 	private float total;
 	private boolean purchased;
+	
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
+	}
 	public String getItem() {
 		return item;
 	}

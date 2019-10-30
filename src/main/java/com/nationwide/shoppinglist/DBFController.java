@@ -30,21 +30,21 @@ public class DBFController {
 			repo.save(Ref);
 			return "Data saved.";
 		}
-	@PostMapping("/save2/{item}/{quantity}/{price}/{total}/{purchased}")
-	public void saveData2(
-			@PathVariable String item,
-			@PathVariable int quantity,
-			@PathVariable float price,
-			@PathVariable float total,
-			@PathVariable boolean purchased) {
-		Test1 Ref = new Test1();
-		Ref.setItem(item);
-		Ref.setQuantity(quantity);
-		Ref.setPrice(price);
-		Ref.setTotal(total);
-		Ref.setPurchased(purchased);
-		repo.save(Ref);
-	}
+//	@PostMapping("/save2/{item}/{quantity}/{price}/{total}/{purchased}")
+//	public void saveData2(
+//			@PathVariable String item,
+//			@PathVariable int quantity,
+//			@PathVariable float price,
+//			@PathVariable float total,
+//			@PathVariable boolean purchased) {
+//		Test1 Ref = new Test1();
+//		Ref.setItem(item);
+//		Ref.setQuantity(quantity);
+//		Ref.setPrice(price);
+//		Ref.setTotal(total);
+//		Ref.setPurchased(purchased);
+//		repo.save(Ref);
+//	}
 	
 //	@GetMapping("/sortbyhigh")
 //	public ArrayList<Test1> sortByHigh(){
