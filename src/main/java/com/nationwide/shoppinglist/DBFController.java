@@ -24,6 +24,7 @@ public class DBFController {
 		return repo.findByPurchased(purchased);
 	}
 	
+	@CrossOrigin
 	@PostMapping("/save")
 	public String saveData(@RequestBody Test1 Ref) {
 

@@ -5,7 +5,7 @@
 		var start = 0;
 		var totalPrice = parseFloat(start);
 		console.log(checker);
-		var url = "http://localhost:8080/showall";
+		var url = "http://"+location.host+"8080/showall";
 		Http.open("GET", url);
 //setTimeout(function(){},1000);
 Http.onreadystatechange = function(e){
@@ -198,57 +198,11 @@ else{
   		t4.type = 'submit';
   		t4.value = "Add new item";
   		t4.addEventListener( 'click', function(){
-  			var item = newItem.value;
-			var quantity = newQuantity.value;
-			var price = newPrice.value;
-			var total = newQuantity.value * newPrice.value;
-			var purchased = "false";
-			var addNew = new Object();
-			addNew.item = item;
-			addNew.quantity = quantity;
-			addNew.price = price;
-			addNew.total = total;
-			addNew.purchased = purchased;
-			var addNewJSON = JSON.stringify(addNew);
-			console.log(addNewJSON);
-
-			$.ajax({
-			 	type : "POST",
-			 	url : "http://localhost:8080/save",
-			 	contentType : "application/json",
-			 	data : addNewJSON,
-			 	dataType : 'json',
-			 	//success : function(dinosaur) {
-			 	//	console.log(data);
-			 	//},
-			 	//error : function(dinosaur) {
-			 	//	console.log(data);
-			 	//},
-			 	complete: function (data) {
-     				request('0');
-     			}
-			 	
-			});
-
-
- 	//  		console.log(newItem.value);
- 	//  		console.log(newQuantity.value);
- 	//  		console.log(newPrice.value);
- 	//  		var newTotal = newQuantity.value * newPrice.value;
- 	//  		console.log(newTotal);
-
-
- 	//  		const Http2 = new XMLHttpRequest();
-		// 	Http2.open("post", "http://localhost:8080/save");
-
-		// 	Http2.onreadystatechange = function(e){
-
-		// 	}
-		// 	var obj = {item: newItem.value, quantity: newQuantity.value, price: newPrice.value, total: newTotal, purchased: false};
-		// 	var myJSON = JSON.stringify(obj);
-		// 	console.log(myJSON);
-		// 	Http2.send("["+myJSON+"]");
-		
+ 	 		console.log(newItem.value);
+ 	 		console.log(newQuantity.value);
+ 	 		console.log(newPrice.value);
+ 	 		var newTotal = newQuantity.value * newPrice.value;
+ 	 		console.log(newTotal);
 		} );
   		
   		t4.id = "newItemButton";
