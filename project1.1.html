@@ -5,7 +5,7 @@
 		var start = 0;
 		var totalPrice = parseFloat(start);
 		console.log(checker);
-		var url = "http://localhost:8080/showall";
+		var url = "http://35.246.83.29:9001/showall";
 		Http.open("GET", url);
 //setTimeout(function(){},1000);
 Http.onreadystatechange = function(e){
@@ -214,7 +214,7 @@ else{
 
 			$.ajax({
 			 	type : "POST",
-			 	url : "http://localhost:8080/save",
+			 	url : "http://35.246.83.29:9001/save",
 			 	contentType : "application/json",
 			 	data : addNewJSON,
 			 	dataType : 'json',
