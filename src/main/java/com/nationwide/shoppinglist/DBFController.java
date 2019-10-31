@@ -1,8 +1,10 @@
 package com.nationwide.shoppinglist;
 import java.util.ArrayList;
+import org.springframework.stereotype.Component;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -31,6 +33,13 @@ public class DBFController {
 			repo.save(Ref);
 			return "Data saved.";
 		}
+	
+	@CrossOrigin
+	@DeleteMapping("/deleteRecord/{R}")
+	public String deleteRecord(@PathVariable int R) {
+		repo.deleteById(R);
+		return "Record deleted";
+	}
 //	@PostMapping("/save2/{item}/{quantity}/{price}/{total}/{purchased}")
 //	public void saveData2(
 //			@PathVariable String item,

@@ -5,17 +5,17 @@
 		var start = 0;
 		var totalPrice = parseFloat(start);
 		console.log(checker);
-		var url = "http://35.246.83.29:9002/showall";
+		var url = "http://localhost:9003/showall";
 		Http.open("GET", url);
+		var id = 0;
 //setTimeout(function(){},1000);
 Http.onreadystatechange = function(e){
-//	console.log("no");
 if (Http.readyState==4){
 	console.log(JSON.parse(Http.responseText));
 	data=JSON.parse(Http.responseText);
 	$("#list1 tbody tr").remove();
 	var tableRef = document.getElementById('list1').getElementsByTagName('tbody')[0];
-//	var header = tableRef.createElement("thead");
+
 	var headerRow = list1.insertRow(0);
 	var cell = headerRow.insertCell(0);
 	cell.innerHTML = "<b>Item</b>";
@@ -31,6 +31,8 @@ if (Http.readyState==4){
 	cell6.innerHTML = "<b></b>";
 		var cell7 = headerRow.insertCell(6);
 	cell7.innerHTML = "<b></b>";
+	var cell8 = headerRow.insertCell(7);
+	cell8.innerHTML = "<b></b>";
 
 	data.forEach(function(loop){
 		if(checker==0){
@@ -38,54 +40,116 @@ if (Http.readyState==4){
 			var tableRef = document.getElementById('list1').getElementsByTagName('tbody')[0];
 
   // Insert a row in the table at row index 0
-  var newRow   = tableRef.insertRow(list1.rows.length);
+  var newRow = tableRef.insertRow(list1.rows.length);
+var idName = id+"n";
+var idI = id+"i";
+var idQ = id+"q";
+var idP = id+"p";
+var idT = id+"t";
+var idPur = id+"pur";
+var idChe = id+"c";
+var idEdi = id;
+var idDel = id+"1";
+
+
+
+
+
+
+
 
   var newRow = list1.insertRow();
   newRow.id ="myTr";
 
   var a1=newRow.insertCell(0);
-  var t1 = document.createTextNode(loop.item);
+  var t1 = document.createElement("span");
+  t1.innerHTML = loop.item;
+  t1.contentEditable = true;
   a1.appendChild(t1);
 
   var a2=newRow.insertCell(1);
-  var t2 = document.createTextNode(loop.quantity);
+  var t2 = document.createElement("span");
+  t2.innerHTML = loop.quantity;
+  t2.contentEditable = true;
   a2.appendChild(t2);
 
   var a3=newRow.insertCell(2);
-  var t3 = document.createTextNode("£"+loop.price);
+  var t3 = document.createElement("span");
+  t3.innerHTML = "£"+loop.price;
+  t3.contentEditable = true;
   a3.appendChild(t3);
 
   var a4=newRow.insertCell(3);
-  var t4 = document.createTextNode("£"+loop.total);
+  var t4 = document.createElement("span");
+  t4.innerHTML = "£"+loop.total;
+  t4.contentEditable = false;
   a4.appendChild(t4);
 
   var a5=newRow.insertCell(4);
   var t5 = document.createElement('input');
   t5.type = 'checkbox';
+  
   t5.checked = loop.purchased;
+  t5.onclick = function(){
+  	if(t5.checked == true){
+  		console.log("Marked as purchased");
+  	}
+  	else{
+  		console.log("Marked as not purchased");
+  	}
+  }
+  t5.id = idPur;
   a5.appendChild(t5);
 
 		var a6=newRow.insertCell(5);
   		var t6 = document.createElement('input');
   		t6.type = 'button';
-  		t6.value = "Edit";
+  		t6.value = "Update";
+  		t6.id = idEdi;
+  		t6.addEventListener( 'click', function(){
+  		console.log(t1.innerHTML);
+  		console.log(t2.innerHTML);
+  		console.log(t3.innerHTML);
+  		console.log(t4.innerHTML);
+  		console.log(t5.checked);
+		 	});
   		a6.appendChild(t6);
 
-		var a7=newRow.insertCell(6);
+		var a8=newRow.insertCell(6);
+  		var t8 = document.createElement('input');
+  		t8.type = 'button';
+  		t8.value = "Delete";
+  		t8.id = idDel;
+  		t8.addEventListener( 'click', function(){
+  		 	console.log("pressed"+document.getElementById(idName).value);
+		var Http3= new XMLHttpRequest();
+        Http3.open("DELETE", 'http://localhost:9003/deleteRecord/' + document.getElementById(idName).value);
+        Http3.setRequestHeader("Content-Type", "application/json");
+        Http3.onload= function(){
+            request('0');
+        }
+        Http3.send();
+        return false;
+		 	});
+  		a8.appendChild(t8);		
+   var a7=newRow.insertCell(7);
   		var t7 = document.createElement('input');
-  		t7.type = 'button';
-  		t7.value = "Delete";
-  		a7.appendChild(t7);
+		t7.type = 'text';
+		t7.value = loop.id;
+  		t7.id = idName;
+  		t7.style.display = "none";
+		a7.appendChild(t7);
 
-  console.log(loop.total);
   var t4total = parseFloat(loop.total);
   totalPrice = totalPrice + t4total;
-  console.log(totalPrice);
+  id = id+1;
+  console.log("id="+id);
 }
 else{
 
 	if(loop.purchased==false){
 		var tableRef = document.getElementById('list1').getElementsByTagName('tbody')[0];
+
 
 		  // Insert a row in the table at row index 0
 		  var newRow   = tableRef.insertRow(list1.rows.length);
@@ -121,18 +185,39 @@ else{
   		t6.value = "Edit";
   		a6.appendChild(t6);
 
+  		var a8=newRow.insertCell(7);
+  		var t8 = document.createTextNode(loop.id);
+  		//t8.id = "id";
+		  a8.appendChild(t8);
+
 		var a7=newRow.insertCell(6);
   		var t7 = document.createElement('input');
   		t7.type = 'button';
   		t7.value = "Delete";
   		a7.appendChild(t7);
+  		// t7.addEventListener( 'click', function(){
+  		// 	console.log("pressed");
+		// 	$.ajax({
+		// 	 	type : "Delete",
+		// 	 	url : "http://localhost:9003/deleteRecord",
+		// 	 	contentType : "application/json",
+		// 	 	data : addNewJSON,
+		// 	 	dataType : 'json',
+		// 	 	complete: function (data) {
+  //    				request('0');
+  //    			}
+		// 	});
+		// } );
 
-		  console.log(loop.total);
-		  var t4total = parseFloat(loop.total);
-		  totalPrice = totalPrice + t4total;
-		  console.log(totalPrice);
-		}
-	}
+		  // console.log(loop.total);
+		  // var t4total = parseFloat(loop.total);
+		  // totalPrice = totalPrice + t4total;
+		  // console.log(totalPrice);
+		//});
+	
+  		//}
+  	}
+  }
 });
 	var newRow0 = list1.insertRow();
 	newRow0.id ="myTr0";
@@ -214,7 +299,7 @@ else{
 
 			$.ajax({
 			 	type : "POST",
-			 	url : "http://35.246.83.29:9002/save",
+			 	url : "http://localhost:9003/save",
 			 	contentType : "application/json",
 			 	data : addNewJSON,
 			 	dataType : 'json',
@@ -259,10 +344,11 @@ else{
 Http.send();
 }
 
+
 </script>
 <html lang="en">
 <head>
-	<title>Shopping List</title>
+	<title>Bootstrap Example</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
@@ -340,11 +426,7 @@ Http.send();
 		<table class="table table-bordered" id="list1">
 			<tbody>
 				<tr>
-					<th>Item</th>
-					<th>Quantity</th>
-					<th>Price</th>
-					<th>Total</th>
-					<th>Purchased</th>
+					
 				</tr>
 			</tbody>
 		</table>
