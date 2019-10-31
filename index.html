@@ -5,7 +5,7 @@
 		var start = 0;
 		var totalPrice = parseFloat(start);
 		console.log(checker);
-		var url = "http://localhost:9003/showall";
+		var url = "http://35.246.83.29:9002/showall";
 		Http.open("GET", url);
 		var id = 0;
 //setTimeout(function(){},1000);
@@ -123,7 +123,7 @@ var idDel = id+"1";
   		t8.addEventListener( 'click', function(){
   		 	console.log("pressed"+document.getElementById(idName).value);
 		var Http3= new XMLHttpRequest();
-        Http3.open("DELETE", 'http://localhost:9003/deleteRecord/' + document.getElementById(idName).value);
+        Http3.open("DELETE", 'http://35.246.83.29:9002/deleteRecord/' + document.getElementById(idName).value);
         Http3.setRequestHeader("Content-Type", "application/json");
         Http3.onload= function(){
             request('0');
@@ -299,7 +299,7 @@ else{
 
 			$.ajax({
 			 	type : "POST",
-			 	url : "http://localhost:9003/save",
+			 	url : "http://35.246.83.29:9002/save",
 			 	contentType : "application/json",
 			 	data : addNewJSON,
 			 	dataType : 'json',
